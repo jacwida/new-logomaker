@@ -2,8 +2,6 @@ import { Slider } from "./ui/slider";
 import ColorsPicker from "./color-picker";
 import { useContext, useEffect, useState } from "react";
 
-import { Button } from "./ui/button";
-import { Activity } from "lucide-react";
 import { StorageContext } from "@/context/storage-context";
 import AllIcons from "./all-icons";
 
@@ -17,9 +15,11 @@ const IconController = ({ storageValue }) => {
   const [fillColor, setFillColor] = useState(
     storageValue ? storageValue?.iconFillColor : "#000"
   );
-  const [fillOpacity, setFillOpacity] = useState(0);
+  const [fillOpacity, setFillOpacity] = useState(1);
 
-  const [icon, setIcon] = useState("Activity");
+  const [icon, setIcon] = useState(
+    storageValue ? storageValue?.icon : "Activity"
+  );
 
   const { updateStorage, setUpdateStorage } = useContext(StorageContext);
 
@@ -55,7 +55,7 @@ const IconController = ({ storageValue }) => {
 
         <Slider
           defaultValue={[size]}
-          max={400}
+          max={500}
           step={1}
           onValueChange={(e) => setSize(e[0])}
         />
