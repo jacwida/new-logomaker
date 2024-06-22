@@ -12,9 +12,7 @@ import {
 import { useState } from "react";
 
 const AllIcons = ({ selectedIcon, storageValue }) => {
-  const [icon, setIcon] = useState(
-    storageValue ? storageValue?.icon : "Activity"
-  );
+  const [icon, setIcon] = useState(storageValue?.icon ?? "Activity");
   const Icon = ({ name, color, size }) => {
     const LucidIcon = icons[name];
 
@@ -38,7 +36,7 @@ const AllIcons = ({ selectedIcon, storageValue }) => {
             <Icon name={icon} color="#000" size={20} />
           </Button>
         </DialogTrigger>
-        <DialogContent className="h-auto md:h-[70dvh] w-[95%] md:w-lvw overflow-y-auto">
+        <DialogContent className="h-[50dvh] md:h-[70dvh] w-[95%] md:w-lvw overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Pick Any Icon</DialogTitle>
             <DialogDescription>

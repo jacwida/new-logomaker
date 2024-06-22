@@ -4,15 +4,10 @@ import { useContext, useEffect, useState } from "react";
 import { StorageContext } from "@/context/storage-context";
 
 const BackGroundController = ({ storageValue }) => {
-  const [rounded, setRounded] = useState(
-    storageValue ? storageValue?.bgRounded : 0
-  );
-  const [padding, setPadding] = useState(
-    storageValue ? storageValue?.bgPadding : 0
-  );
-  const [color, setColor] = useState(
-    storageValue ? storageValue?.bgColor : "#fff"
-  );
+  const [rounded, setRounded] = useState(storageValue?.bgRounded ?? 35);
+
+  const [padding, setPadding] = useState(storageValue?.bgPadding ?? 40);
+  const [color, setColor] = useState(storageValue?.bgColor ?? "#000");
 
   const { updateStorage, setUpdateStorage } = useContext(StorageContext);
 

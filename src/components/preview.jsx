@@ -151,9 +151,9 @@ const Preview = ({ downloadIcon, storageValue, downloadSvg }) => {
   };
 
   return (
-    <div className="w-full p-3 h-screen flex justify-center items-center">
+    <div className="w-full p-3 md:h-screen  bg-slate-100 flex justify-center items-center">
       <div
-        className="w-[500px] h-[500px] bg-slate-100 border-dashed border"
+        className="md:w-[500px] md:h-[500px] w-[300px] h-[300px] bg-slate-50 border-dashed border"
         style={{
           padding: storageValue?.bgPadding,
         }}

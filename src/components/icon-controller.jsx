@@ -6,21 +6,26 @@ import { StorageContext } from "@/context/storage-context";
 import AllIcons from "./all-icons";
 
 const IconController = ({ storageValue }) => {
-  const [size, setSize] = useState(storageValue ? storageValue?.iconSize : 200);
-  const [rotate, setRotate] = useState(
-    storageValue ? storageValue?.iconRotate : 0
+  const [size, setSize] = useState(storageValue?.iconSize ?? 200);
+  const [rotate, setRotate] = useState(storageValue?.iconRotate ?? 0);
+  const [borderWidth, setBorderWidth] = useState(
+    storageValue?.IconBorderWidth ?? 2.5
   );
-  const [borderWidth, setBorderWidth] = useState(2.5);
-  const [borderColor, setBorderColor] = useState("#fff");
+  const [borderColor, setBorderColor] = useState(
+    storageValue?.iconBorderColor ?? "#ffffff"
+  );
   const [fillColor, setFillColor] = useState(
-    storageValue ? storageValue?.iconFillColor : "#000"
+    storageValue?.iconFillColor ?? "#fff"
   );
-  const [fillOpacity, setFillOpacity] = useState(1);
-
-  const [icon, setIcon] = useState(
-    storageValue ? storageValue?.icon : "Activity"
+  const [fillOpacity, setFillOpacity] = useState(
+    storageValue?.iconFillOpacity ?? 1
   );
+  const [icon, setIcon] = useState(storageValue?.icon ?? "Activity");
 
+  const [rounded, setRounded] = useState(storageValue?.bgRounded ?? 35);
+
+  const [padding, setPadding] = useState(storageValue?.bgPadding ?? 40);
+  const [color, setColor] = useState(storageValue?.bgColor ?? "#000");
   const { updateStorage, setUpdateStorage } = useContext(StorageContext);
 
   useEffect(() => {
@@ -33,13 +38,16 @@ const IconController = ({ storageValue }) => {
       iconFillColor: fillColor,
       iconFillOpacity: fillOpacity,
       icon: icon,
+      bgRounded: rounded,
+      bgPadding: padding,
+      bgColor: color,
     };
 
     setUpdateStorage(updatedValue);
     localStorage.setItem("value", JSON.stringify(updatedValue));
   }, [size, rotate, fillOpacity, borderColor, fillColor, borderWidth, icon]);
   return (
-    <div className="w-full border-r p-3 flex flex-col gap-8 overflow-auto h-screen">
+    <div className="w-full border-r p-3 flex flex-col gap-8 overflow-auto md:h-screen">
       <div className="flex justify-between">
         <p className="text-sm">Icon</p>
         <p className="text-sm">{icon}</p>
@@ -55,7 +63,7 @@ const IconController = ({ storageValue }) => {
 
         <Slider
           defaultValue={[size]}
-          max={500}
+          max={400}
           step={1}
           onValueChange={(e) => setSize(e[0])}
         />
@@ -71,6 +79,28 @@ const IconController = ({ storageValue }) => {
           max={360}
           step={1}
           onValueChange={(e) => setRotate(e[0])}
+        />
+      </div>
+
+      <div className="space-y-4">
+        <div className="flex justify-between items-center">
+          <p className="text-sm">Fill Color</p>
+        </div>
+        <div className="">
+          <ColorsPicker selectedColor={(color) => setFillColor(color)} />
+        </div>
+      </div>
+      <div className="space-y-2">
+        <div className="flex justify-between items-center">
+          <p className="text-sm">Fill opacity</p>
+          <p className="text-xs">{fillOpacity} %</p>
+        </div>
+
+        <Slider
+          defaultValue={[fillOpacity]}
+          max={100}
+          step={1}
+          onValueChange={(e) => setFillOpacity(e[0])}
         />
       </div>
       <div className="space-y-2">
@@ -96,28 +126,7 @@ const IconController = ({ storageValue }) => {
         </div>
       </div>
 
-      <div className="space-y-2">
-        <div className="flex justify-between items-center">
-          <p className="text-sm">Fill opacity</p>
-          <p className="text-xs">{fillOpacity} %</p>
-        </div>
-
-        <Slider
-          defaultValue={[fillOpacity]}
-          max={100}
-          step={1}
-          onValueChange={(e) => setFillOpacity(e[0])}
-        />
-      </div>
-      <div className="space-y-4">
-        <div className="flex justify-between items-center">
-          <p className="text-sm">Fill Color</p>
-        </div>
-        <div className="">
-          <ColorsPicker selectedColor={(color) => setFillColor(color)} />
-        </div>
-      </div>
-      <div className="my-8"></div>
+      <div className="md:my-8"></div>
     </div>
   );
 };
